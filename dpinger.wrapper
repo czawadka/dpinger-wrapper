@@ -1,0 +1,29 @@
+#!/bin/bash
+
+EXEC_ORIG="$0.orig"
+
+echo "$(basename $0)"
+for var in "$@"; do
+  echo "$var"
+done
+
+OPT1=("$@")
+OPT2=()
+
+for ((i=0; i < ${#OPT1[@]}; i++)) ; do
+  var=${OPT1[$i]}
+  if [ "$var" = "-D" ]; then
+    (( i++ )) # skip also next element
+    OPT2+=("-D" "10000m")
+  elif [ "$var" = "-t" ]; then
+    (( i++ )) # skip also next element
+    OPT2+=($var "180s")
+  elif [ "$var" = "-L" ]; then
+    (( i++ )) # skip also next element
+    OPT2+=($var "80")
+  else
+    OPT2+=("$var")
+  fi
+done
+
+$EXEC_ORIG "${OPT2[@]}"
