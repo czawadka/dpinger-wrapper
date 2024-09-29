@@ -2,11 +2,6 @@
 
 EXEC_ORIG="$0.orig"
 
-echo "$(basename $0)"
-for var in "$@"; do
-  echo "$var"
-done
-
 OPT1=("$@")
 OPT2=()
 
